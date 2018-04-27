@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSONObject;
  *  最大堆：根结点的键值是所有堆结点键值中最大者，且每个结点的值都比其孩子的值大。
  *  最小堆：根结点的键值是所有堆结点键值中最小者，且每个结点的值都比其孩子的值小。
  *  堆序列化则为二叉树层级遍历
+ *  特性:父节点为i，左、右子节点分别可以用 2*i+1，2* i+2表示
  *
  *
  * 算法流程
@@ -28,7 +29,7 @@ public class HeapSort {
         // 构建最大堆
         buildMaxHeap(data);
         System.out.println(JSONObject.toJSON(data));
-        // 循环，每次把根节点和最后一个节点调换位置
+        // 循环，每次把根节点和最后一个节点调换位置，根节点最大
         for (int i = data.length; i > 1; i--) {
             Comparable tmp = data[0];
             data[0] = data[i - 1];
@@ -40,19 +41,21 @@ public class HeapSort {
 
     // 根据输入数组构建一个最大堆
     private static void buildMaxHeap(Comparable[] data) {
+        // 各种管理各自二叉树
         for (int i = data.length / 2; i > 0; i--) {
             maxHeapify(data, i, data.length);
+            System.out.println(JSONObject.toJSON(data));
         }
     }
 
-    // 堆调整，使其生成最大堆
+    // 堆调整，使其生成最大堆，特性:二叉树父节点序列=子节点序列/2
     private static void maxHeapify(Comparable[] data, int parentNodeIndex,
                                    int heapSize) {
         // 左子节点索引
         int leftChildNodeIndex = parentNodeIndex * 2;
         // 右子节点索引
         int rightChildNodeIndex = parentNodeIndex * 2 + 1;
-        // 最大节点索引
+        // 父节点索引
         int largestNodeIndex = parentNodeIndex;
         // 如果左子节点大于父节点，则将左子节点作为最大节点
         if (leftChildNodeIndex <= heapSize
@@ -77,7 +80,7 @@ public class HeapSort {
     }
 
     public static void main(String[] args) {
-        Integer[] a = {2, 3, 4, 5, 4, 5, 46, 5, 65, 3, 4, 34, 3, 4, 5, 4, 6, 5};
+        Integer[] a = {7, 8, 4, 5, 6, 9};
         sort(a);
         System.out.println(JSONObject.toJSON(a));
     }
