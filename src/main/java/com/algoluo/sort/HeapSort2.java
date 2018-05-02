@@ -28,6 +28,7 @@ public class HeapSort2 {
         }
     }
 
+    //循环算法不如递归好理解
     public static void createMaxdHeap(int[] data, int lastIndex) {
         for (int i = (lastIndex - 1) / 2; i >= 0; i--) {
             // 保存当前正在判断的节点
